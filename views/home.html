@@ -11,28 +11,51 @@
 
         <script src="/static/javascripts/app.js"></script>
 
-
     </head>
+
     <body>
         <div class="container">
             <h1>Book App</h1>
 
             <div id="booksCon">
-                <script type="text/template" id="bookTemp">
-                    <div class="book">
-                        <hr>
-                        <h3><%= title %></h3>
-                        <p>Author: <%= author %></p>
-                        <p><em><%= description %></em></p>
-                        <p><strong>
-                            Tags:  <% _.each(tags, function(item)
-                            { %>
-                                <%= item.keyword %> 
-                            <% }); %>
-                        </strong></p>
-                    </div>
-                </script>
             </div>
+            <script type="text/template" id="bookTemp">
+            
+                <div class="book">
+                    <hr>
+                    <h3><%= title %></h3>
+                    <p>Author: <%= author %></p>
+                    <p><em><%= description %></em></p>
+                    <p>
+                    <strong>Comments:</strong> 
+                    <% _.each(comments, function(item) { %>
+                        // Create an X button that deletes the comment from both the page and MongoDB.
+                        <p>"<%= item.comment %>" by: <%= item.person %>
+                            <button id="<%=_id%>=<%=item._id" onclick="return deleteComment(this)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span>
+                            </button>
+                        </p>
+                    <% }); %>
+
+                    </p>
+
+                    // Create a form for adding new comments with a username, we use Underscore template so we can programmatically add ids of books into the HTML tags alongside adding a comment block for each book.
+                    
+                    <form id="<%= _id %>form">
+                        <div class="form-group">
+                            <label>Add a new comment</label>
+                            <input type="text" placeholder="Add Comment" class="form-control" name="Comment" id="<%= _id %>comment">
+                            <input type="text" plceholder="Username" class="form-control" name="person" id="<%= _id %>person">
+                            <button id="<%= _id %>" class="btn btn-default" type="submit" onclick="return sendComment(this)">Post Comment!</button>
+                        </div>                   
+                    // // <p><strong>
+                    //     Tags:  <% _.each(tags, function(item)
+                    //     { %>
+                    //         <%= item.keyword %> 
+                    //     <% }); %>
+                    // </strong></p>
+                    </form>
+                </div>
+            </script>
         </div>
     </body>
 </html>
