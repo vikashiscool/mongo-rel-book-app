@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var ourBooks = require("../books.json")
 
 // Comment is embedded
 var CommentSchema = new Schema({
